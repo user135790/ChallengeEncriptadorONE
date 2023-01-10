@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="reset.css">
+        <link rel="stylesheet" href="style.css">
+        <title>Encriptador-Challenge-ONE</title>
+    </head>
+    <body>
+        <header class="tittle">
+            <h1><img src="./img/Vector.png"></h1>
+        </header>
+        <main>
+            <section class="container-text">
+                <div class="input">
+                    <textarea id="text-input" placeholder="Ingrese el texto aqui"></textarea>
+                </div>
+                <p>&#9888; No incluyas mayúsculas o tildes en la palabra ingresada</p>
+                <div class="buttons">
+                    
+                    <button id="btn-encriptar">Encriptar</button>
+                    <button id="btn-desencriptar">Desencriptar</button>
+                </div>
+            </section>
+
+            <section class="container-result">
+                <div id="respuesta" class="input">
+                    <textarea id="result" readonly> </textarea>
+                    <div class="container-no-result">
+                        <img src="./img/Muñeco.png">
+                        <h2>Ningun mensaje fue encontrado</h2>
+                        <p>Ingresa el texto que deseas encriptar o desencriptar</p>
+                    </div>
+                </div>
+                
+                <div class="buttons">
+                    <button id="btn-copiar">Copiar texto</button>
+                </div>
+            </section>
+            
+        </main>
+        <footer class="container-footer">
+            <a href="https://github.com/user135790"><img src="./img/github-sign.png"></a>
+            <a href="https://co.linkedin.com/in/santiago-ramirez-dev/"><img src="./img/linkedin.png"></a>
+            <p>&copy Copyright Encriptador Challenge ONE <br> Santiago Ramírez Pérez</p>
+            <br>
+            <p>Créditos</p>
+            <a href="https://www.flaticon.com/free-icons/github" title="github icons">Github icons created by Dave Gandy - Flaticon</a>
+            |
+            <a href="https://www.flaticon.com/free-icons/linkedin" title="linkedin icons">Linkedin icons created by riajulislam - Flaticon</a>
+        </footer>
+        <script>
+            var input = document.querySelector("textarea[id='text-input']");
+            var botonEncriptar = document.querySelector("button[id='btn-encriptar']");
+            var botonDesencriptar = document.querySelector("button[id='btn-desencriptar']");
+            var botonCopiar = document.querySelector("button[id='btn-copiar']");
+            var valorEncriptado = ["ai","enter","imes","ober","ufat"];
+            var vocales = ["a","e","i","o","u"];
+            var resultado = document.querySelector("textarea[id='result']");
+            var sinResultado = document.querySelector("div[class='container-no-result']");
+
+            function mostrarResultado(e){
+                var texto = input.value;
+                if(texto.length != 0){
+                    sinResultado.style.display = "none";
+                    resultado.style.display = "inline-block";
+                    botonCopiar.style.opacity = "1";
+                }else{
+                    sinResultado.style.display = "inline-block";
+                    resultado.style.display = "none";
+                    botonCopiar.style.opacity = "0";
+                }
+            }
+
+            function Encriptar(){
+                var texto = input.value;
+                texto = texto.toLowerCase();
+                var auxResultado = "";
+                for (var i=0; i<texto.length; i++){
+                    if(texto[i] == "a"){
+                        auxResultado = auxResultado.concat("ai");
+                        continue;
+                    }
+                    if(texto[i] == "e"){
+                        auxResultado = auxResultado.concat("enter");
+                        continue;
+                    }
+                    if(texto[i] == "i"){
+                        auxResultado = auxResultado.concat("imes");
+                        continue;
+                    }
+                    if(texto[i] == "o"){
+                        auxResultado = auxResultado.concat("ober");
+                        continue;
+                    }
+                    if(texto[i] == "u"){
+                        auxResultado = auxResultado.concat("ufat");
+                        continue;
+                    }
+                    
+                    auxResultado = auxResultado.concat(texto[i]);
+                }
+                mostrarResultado();
+                resultado.value = auxResultado;
+            }
+
+            function Desencriptar(){
+                var texto = input.value;
+                texto = texto.toLowerCase();
+      
+                if(texto.includes("ai")){
+                    texto = texto.replaceAll("ai","a");
+                }
+                if(texto.includes("enter")){
+                    texto = texto.replaceAll("enter","e");
+                }
+                if(texto.includes("imes")){
+                    texto = texto.replaceAll("imes","i");
+                }
+                if(texto.includes("ober")){
+                    texto = texto.replaceAll("ober","o");
+                }
+                if(texto.includes("ufat")){
+                    texto = texto.replaceAll("ufat","u");
+                }       
+                mostrarResultado();
+                resultado.value = texto;
+            }
+
+            function copiarTexto(){
+                var textarea = document.querySelector("textarea[id='result']");
+                textarea.select();
+                document.execCommand("copy");
+            }
+            botonEncriptar.onclick = Encriptar;
+            botonDesencriptar.onclick = Desencriptar;
+            botonCopiar.onclick = copiarTexto;
+
+        </script>
+    </body>
+</html>
