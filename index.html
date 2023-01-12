@@ -130,8 +130,7 @@
 
             function copiarTexto(){
                 var textarea = document.querySelector("textarea[id='result']");
-                textarea.select();
-                document.execCommand("copy");
+                navigator.clipboard.writeText(str.value);
             }
             botonEncriptar.onclick = Encriptar;
             botonDesencriptar.onclick = Desencriptar;
